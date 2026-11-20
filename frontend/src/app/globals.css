@@ -1,0 +1,285 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* Fonts: next/font variables are set on <html> in app/layout.tsx */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Arunalu radius scale: 4px buttons/inputs, 8px cards, 12px modals */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-3xl: 12px;
+  --radius-4xl: 12px;
+
+  /* Arunalu brand palette (Figma design system) */
+  --color-navy: #0b1f33;
+  --color-ocean: #123f5a;
+  --color-teal: #16b8b0;
+  --color-teal-strong: #0b5e5a;
+  --color-sand: #e8d8b5;
+  --color-surface: #f4f7f8;
+  --color-ink: #172b3a;
+  --color-ink-muted: #687985;
+  --color-ink-strong-muted: #3d4a53;
+  --color-line: #dce5ea;
+  --color-success: #16845b;
+  --color-success-strong: #0e5a3e;
+  --color-warning: #d99a26;
+  --color-warning-strong: #7a4e05;
+  --color-error: #d64a4a;
+  --color-error-strong: #9e2b2b;
+
+  /* Header heights per breakpoint */
+  --spacing-header-mobile: 64px;
+  --spacing-header-tablet: 72px;
+  --spacing-header-desktop: 88px;
+}
+
+:root {
+  /* shadcn/ui semantic tokens mapped to the Arunalu palette */
+  --background: #ffffff;
+  --foreground: #172b3a;
+  --card: #ffffff;
+  --card-foreground: #172b3a;
+  --popover: #ffffff;
+  --popover-foreground: #172b3a;
+  --primary: #16b8b0;
+  --primary-foreground: #0b1f33;
+  --secondary: #0b1f33;
+  --secondary-foreground: #ffffff;
+  --muted: #f4f7f8;
+  --muted-foreground: #687985;
+  --accent: #f4f7f8;
+  --accent-foreground: #0b1f33;
+  --destructive: #d64a4a;
+  --border: #dce5ea;
+  --input: #dce5ea;
+  --ring: #16b8b0;
+  --chart-1: #16b8b0;
+  --chart-2: #123f5a;
+  --chart-3: #e8d8b5;
+  --chart-4: #0b5e5a;
+  --chart-5: #687985;
+  --radius: 4px;
+  --sidebar: #0b1f33;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #16b8b0;
+  --sidebar-primary-foreground: #0b1f33;
+  --sidebar-accent: #123f5a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.12);
+  --sidebar-ring: #16b8b0;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-padding-top: var(--spacing-header-desktop);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+}
+
+/* Typography utilities from the design system */
+@utility type-overline {
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility type-button {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Page container: 1280 content, 20/40/80px side margins */
+@utility container-site {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  @media (width >= 48rem) {
+    padding-inline: 40px;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 80px;
+  }
+}
+/* Heading scale (Figma text styles). Mobile/tablet styles apply below 1280px. */
+@utility type-hero {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  @media (width >= 80rem) {
+    font-size: 76px;
+    line-height: 1;
+  }
+}
+
+@utility type-h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.1;
+  @media (width >= 80rem) {
+    font-size: 52px;
+    line-height: 1.08;
+  }
+}
+
+@utility type-h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.15;
+  @media (width >= 80rem) {
+    font-size: 40px;
+    line-height: 1.12;
+  }
+}
+
+@utility type-h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+@utility type-h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+/* Section vertical rhythm: 64 mobile / 72 tablet / 120 desktop */
+@utility section-y {
+  padding-block: 64px;
+  @media (width >= 48rem) {
+    padding-block: 72px;
+  }
+  @media (width >= 80rem) {
+    padding-block: 120px;
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(var(--r, 0deg));
+  }
+}
+
+@keyframes scroll-dot {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
