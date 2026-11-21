@@ -17,6 +17,14 @@ const VARIANTS = {
 
 export type CtaVariant = keyof typeof VARIANTS
 
+const BASE =
+  "group/cta inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg px-6 type-button whitespace-nowrap outline-none transition-colors duration-150 focus-visible:ring-3 motion-reduce:transition-none"
+
+/** Same Figma "Button" styles for a <button> element (forms, admin actions). */
+export function ctaClassName(variant: CtaVariant = "primary", className?: string) {
+  return cn(BASE, VARIANTS[variant], "disabled:pointer-events-none disabled:opacity-50", className)
+}
+
 type CtaLinkProps = {
   href: string
   children: React.ReactNode
@@ -43,7 +51,7 @@ export function CtaLink({
 }: CtaLinkProps) {
   const showIcon = icon ?? variant === "text"
   const classes = cn(
-    "group/cta inline-flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg px-6 type-button whitespace-nowrap outline-none transition-colors duration-150 focus-visible:ring-3 motion-reduce:transition-none",
+    BASE,
     VARIANTS[variant],
     variant === "text" && onDark && "text-teal hover:text-white",
     block && "w-full",

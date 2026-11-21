@@ -180,7 +180,7 @@ Last updated: 2026-11-21. Full roadmap (stages 01–11): report section 15 and `
 | Stage 4 – Products Listing & Product Details | Implemented – Visual Review Pending | `/products` and `/products/[slug]`. Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
 | Stage 5 – Order / Export / Contact forms | Implemented – Visual Review Pending | Not connected to the API yet (preview / unavailable modes). Sandbox: tsc, ESLint, build, Playwright with a mock API |
 | Stage 6 – Remaining public pages | Implemented – Visual Review Pending | About, Our Process, Quality, Export, Gallery, News, Privacy Policy, Terms. News/legal show pending notices (no invented content). Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
-| Stage 7 – Admin panel | Next | Frontend admin UI (Figma admin frames); no backend yet |
+| Stage 7 – Admin panel | In progress – 7a Implemented | 7a: admin shell (sidebar / tablet rail / mobile drawer), Login, Dashboard, Notifications. Sample data only, no sign-in yet; `/admin` served only in development or with `ADMIN_PREVIEW=true` (`src/proxy.ts` returns 404 otherwise). Next: 7b Products + Categories, 7c Requests, 7d Gallery/News/Content/Settings, 7e Users/Roles/Logs/Profile |
 
 Not started: admin panel, Laravel backend, database (migration plan must be reviewed first), deployment.
 
@@ -193,6 +193,7 @@ Not started: admin panel, Laravel backend, database (migration plan must be revi
 | D-03 | 2026-11-20 | Products sort options: Featured (default), Name A–Z, Name Z–A. |
 | D-04 | 2026-11-20 | Product details gallery shows the enhanced photo and the original product photo (as in Figma). |
 | D-05 | 2026-11-20 | Category URL format stays `/products?category=<slug>`. |
+| D-15 | 2026-11-21 | Admin UI built before the backend with labelled sample data; `/admin` gated by `src/proxy.ts` + layout (dev or `ADMIN_PREVIEW=true` only). This gate is not access control; Laravel enforces auth and permissions server-side (Stage 8/9). |
 | D-10 – D-14 | 2026-11-21 | Shared Figma process stages; Packaging options → `/#packaging`; gallery = real product photos only; pending notices for news/legal; `/export` includes the inquiry form. Details in `documentation/PROGRESS.md`. |
 | D-06 – D-09 | 2026-11-21 | Forms: Server Actions → Laravel API; export allows several products, order one; "Request a quote" → `/request-order`; honeypot anti-spam. Details in `documentation/PROGRESS.md`. |
 

@@ -16,7 +16,7 @@ Status terms (report, Document Guide): **Implemented** = code exists · **Verifi
 | 04 | Products listing and details | Implemented – visual review pending | Sandbox: tsc, ESLint, build (5 product pages prerendered), Playwright 1440/768/390: filters, search, sort, URL deep links, mega-menu link, gallery, lightbox, mobile action bar |
 | 05 | Order / export / contact forms | Implemented – visual review pending (API not connected) | Sandbox: tsc, ESLint, build; Playwright 1440/768/390 against a mock API: client + server validation, blur/typing checks, 422 field mapping, references, preview and unavailable modes, no-JavaScript submit, honeypot, product preselect |
 | 06 | Remaining public pages / routes | Implemented – visual review pending | Sandbox: tsc, ESLint, build (22 routes static), Playwright 1440/768/390 on 9 pages: no overflow, no console errors, internal links resolve, gallery lightbox (keys, counter, close), process scroll-linked stage nav |
-| 07 | Admin panel | Pending | – |
+| 07 | Admin panel | In progress – 7a implemented, visual review pending | 7a: shell, login, dashboard, notifications. Sandbox: tsc, ESLint, build, Playwright 1440/768/390 (no overflow, login validation + password toggle, notification tabs / mark all read, mobile drawer); production build without ADMIN_PREVIEW returns 404 for every /admin URL with no sample content in the response |
 | 08 | Laravel backend / database | Pending (backend folder empty; blueprint needs review) | – |
 | 09 | API integration | Pending | – |
 | 10 | QA / security / performance | Planned | – |
@@ -42,6 +42,7 @@ All test evidence so far comes from a sandbox copy of the frontend, not from the
 | D-12 | 2026-11-21 | Gallery shows only real product photos (enhanced + original). Production/facility/team items and the video gallery appear when real media is supplied. | Report §4: AI images must not be shown as real facilities or staff. |
 | D-13 | 2026-11-21 | News, Privacy Policy and Terms show an honest "being prepared / contact us" notice; Privacy and Terms are `noindex`. No article detail route until articles exist. | No approved content; nothing invented. |
 | D-14 | 2026-11-21 | `/export` includes the export inquiry form (`#inquiry`); `/export-inquiry` stays as a standalone page. | Figma Export page has the form; existing links keep working. |
+| D-15 | 2026-11-21 | Admin UI (Stage 7) is built before the backend, with labelled sample data from the Figma frames. `/admin` is served only in development or when `ADMIN_PREVIEW=true` (set at build and run time); `src/proxy.ts` answers 404 otherwise. Sign-in shows a "not connected" notice. | No backend yet; the gate is not access control — Laravel will enforce auth and role permissions server-side. |
 
 ## Report vs implementation – known differences
 
@@ -75,3 +76,4 @@ All test evidence so far comes from a sandbox copy of the frontend, not from the
 | 2026-11-21 | Stage 4 implemented: `/products` (category chips All + 4, search, sort, URL state, empty state, desktop inquiry CTA) and `/products/[slug]` (static params for 5 products, gallery with original photo, zoom lightbox, verified spec rows, related products, mobile action bar, Product + BreadcrumbList JSON-LD). Catalogue extended with categories and a many-to-many `productCategories` list. |
 | 2026-11-20 | Report v1.0 added to `documentation/`. CLAUDE.md synced (authority order, roles, statuses, decisions). `frontend/.gitignore` now allows `.env.example`. |
 | 2026-11-21 | Stage 6 implemented: `/about`, `/our-process` (interactive journey), `/quality`, `/export` (with inquiry form), `/gallery` (filter + lightbox), `/news`, `/privacy-policy`, `/terms`. Shared process stages; Packaging options → `/#packaging`. |
+| 2026-11-21 | Stage 7a implemented: admin shell (sidebar ≥1280, icon rail 768–1279, mobile header + drawer), `/admin/login`, `/admin` dashboard, `/admin/notifications`, placeholders for the 7b–7e screens, `src/proxy.ts` preview gate, `ADMIN_PREVIEW` in `.env.example`. |
