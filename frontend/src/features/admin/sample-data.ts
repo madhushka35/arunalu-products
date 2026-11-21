@@ -152,3 +152,72 @@ export const adminArticles: AdminArticle[] = [
 ]
 
 export const findArticle = (id: string) => adminArticles.find((a) => a.id === id)
+
+/* ---- System (7e) — staff accounts only; customers never have accounts ---- */
+
+export const adminRoles = ["Super Admin", "Sales Manager", "Content Editor", "Viewer"] as const
+export type AdminRole = (typeof adminRoles)[number]
+
+export type AdminUser = { id: string; name: string; email: string; role: AdminRole; status: "Active" | "Inactive"; lastLogin: string }
+
+/** Figma "Admin – 16 User Management" sample rows (example.com addresses). */
+export const adminUsers: AdminUser[] = [
+  { id: "u1", name: "Admin User", email: "admin@example.com", role: "Super Admin", status: "Active", lastLogin: "19 Nov, 09:58" },
+  { id: "u2", name: "Sales Manager (sample)", email: "sales@example.com", role: "Sales Manager", status: "Active", lastLogin: "19 Nov, 08:20" },
+  { id: "u3", name: "Editor (sample)", email: "editor@example.com", role: "Content Editor", status: "Active", lastLogin: "18 Nov, 17:05" },
+  { id: "u4", name: "Viewer (sample)", email: "viewer@example.com", role: "Viewer", status: "Inactive", lastLogin: "02 Nov, 10:11" },
+]
+
+export const permissionModules = [
+  "Dashboard",
+  "Products",
+  "Categories",
+  "Order requests",
+  "Export inquiries",
+  "Contact inquiries",
+  "Gallery",
+  "News",
+  "Website content",
+  "Users",
+  "Settings",
+  "Activity logs",
+] as const
+export const permissionActions = ["View", "Create", "Edit", "Delete"] as const
+type Matrix = Record<(typeof permissionModules)[number], [number, number, number, number]>
+
+const all = (v: [number, number, number, number]) => Object.fromEntries(permissionModules.map((m) => [m, v])) as Matrix
+
+/** Sample permission matrices ("adjust to Arunalu Products' team"). Sales Manager matches the Figma frame. */
+export const rolePermissions: Record<AdminRole, Matrix> = {
+  "Super Admin": all([1, 1, 1, 1]),
+  "Sales Manager": {
+    ...all([0, 0, 0, 0]),
+    Dashboard: [1, 0, 0, 0],
+    Products: [1, 0, 0, 0],
+    Categories: [1, 0, 0, 0],
+    "Order requests": [1, 1, 1, 0],
+    "Export inquiries": [1, 1, 1, 0],
+    "Contact inquiries": [1, 0, 1, 0],
+    Gallery: [1, 0, 0, 0],
+    News: [1, 0, 0, 0],
+    "Activity logs": [1, 0, 0, 0],
+  },
+  "Content Editor": {
+    ...all([0, 0, 0, 0]),
+    Dashboard: [1, 0, 0, 0],
+    Products: [1, 1, 1, 0],
+    Categories: [1, 0, 0, 0],
+    Gallery: [1, 1, 1, 1],
+    News: [1, 1, 1, 1],
+    "Website content": [1, 0, 1, 0],
+  },
+  Viewer: { ...all([1, 0, 0, 0]), Users: [0, 0, 0, 0], Settings: [0, 0, 0, 0] },
+}
+
+/** Figma "Admin – 19 Activity Logs" sample rows. */
+export const activityLog = [
+  { id: "l1", time: "19 Nov, 11:32", user: "Admin User", action: "Changed status Reviewing → Contacted", entity: "ARU-ORD-00009", ip: "0.0.0.0 (sample)" },
+  { id: "l2", time: "19 Nov, 10:15", user: "Editor (sample)", action: "Published product", entity: "Headless Sprats", ip: "0.0.0.0 (sample)" },
+  { id: "l3", time: "18 Nov, 16:40", user: "Admin User", action: "Uploaded 6 media files", entity: "Gallery", ip: "0.0.0.0 (sample)" },
+  { id: "l4", time: "18 Nov, 09:02", user: "Admin User", action: "Signed in", entity: "Session", ip: "0.0.0.0 (sample)" },
+]

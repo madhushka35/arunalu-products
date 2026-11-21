@@ -65,11 +65,3 @@ export function activeAdminItem(pathname: string) {
     .filter((i) => (i.href === "/admin" ? pathname === "/admin" : pathname === i.href || pathname.startsWith(i.href + "/")))
     .sort((a, b) => b.href.length - a.href.length)[0]
 }
-
-/** Screens still to be built in Stage 7b–7e (shown as a labelled placeholder). */
-export const pendingAdminScreens: Record<string, { title: string; stage: string }> = {
-  users: { title: "Users", stage: "7e" },
-  roles: { title: "Roles & permissions", stage: "7e" },
-  activity: { title: "Activity logs", stage: "7e" },
-  profile: { title: "My profile", stage: "7e" },
-}
