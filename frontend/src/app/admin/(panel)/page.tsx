@@ -5,6 +5,7 @@ import { DataTable } from "@/components/admin/data-table"
 import { NotificationItem } from "@/components/admin/notification-item"
 import { AdminPageHeader, Panel, StatCard, StatusBadge } from "@/components/admin/ui"
 import { CtaLink } from "@/components/public/cta-link"
+import { requestHref } from "@/features/admin/requests"
 import { sampleActivity, sampleAdminUser, sampleExports, sampleNotifications, sampleOrders, sampleStats } from "@/features/admin/sample-data"
 
 export const metadata: Metadata = { title: "Dashboard" }
@@ -53,6 +54,7 @@ export default function AdminDashboardPage() {
               { header: "Qty", width: "w-[90px]", desktopOnly: true, cell: (o) => o.quantity },
               { header: "Status", width: "w-[160px]", cell: (o) => <StatusBadge status={o.status} /> },
             ]}
+            href={(o) => requestHref({ kind: "order", reference: o.reference })}
             card={(o) => ({ title: o.reference, badge: <StatusBadge status={o.status} />, line1: o.customer, line2: `${o.product} · ${o.quantity}`, meta: `${o.received} · ${o.country}` })}
           />
 
@@ -84,6 +86,7 @@ export default function AdminDashboardPage() {
               { header: "Est. qty", width: "w-[100px]", desktopOnly: true, cell: (e) => e.quantity },
               { header: "Status", width: "w-[160px]", cell: (e) => <StatusBadge status={e.status} /> },
             ]}
+            href={(e) => requestHref({ kind: "export", reference: e.reference })}
             card={(e) => ({ title: e.reference, badge: <StatusBadge status={e.status} />, line1: e.company, line2: `${e.product} · ${e.quantity}`, meta: e.destination })}
           />
 
