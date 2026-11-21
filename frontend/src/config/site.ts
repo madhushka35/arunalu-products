@@ -89,8 +89,8 @@ export const megaMenuExplore: NavItem[] = [
   { label: "Our process", href: "/our-process" },
   { label: "Quality & food safety", href: "/quality" },
   { label: "Export & wholesale", href: "/export" },
-  // Route not yet confirmed: packaging content currently lives on Our Process.
-  { label: "Packaging options", href: "/our-process#packaging" },
+  // Homepage "Packaging Showcase" section (Figma has no separate packaging page).
+  { label: "Packaging options", href: "/#packaging" },
 ]
 
 export type FooterColumn = { title: string; links: NavItem[] }

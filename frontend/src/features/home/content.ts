@@ -11,6 +11,7 @@
  */
 
 import { megaMenuCategories, quoteHref } from "@/config/site"
+import { processStages } from "@/features/process/stages"
 
 /* ------------------------------------------------------------------ */
 /* Illustrative imagery                                                */
@@ -131,7 +132,7 @@ export const categories = {
 export type Stage = {
   title: string
   image: IllustrativeKey
-  /** Approved copy only; null = awaiting verified process details. */
+  /** Figma stage copy (Our Process page). */
   text: string | null
 }
 
@@ -142,18 +143,8 @@ export const journey = {
   /** Figma shows stage 05 (Machine Drying) as the active stage. */
   initialStage: 4,
   cta: { label: "Discover our process", href: "/our-process" },
-  stages: [
-    { title: "Raw Material Receiving", image: "receiving", text: "Incoming raw material is checked before processing." },
-    { title: "Inspection", image: "qa", text: null },
-    { title: "Preparation", image: "preparation", text: "Careful preparation of raw material for drying." },
-    { title: "Processing", image: "processing", text: "Hygienic handling and controlled preparation." },
-    { title: "Machine Drying", image: "drying", text: "Prepared seafood is dried with machine assistance to support consistent results batch after batch." },
-    { title: "Quality Inspection", image: "qa", text: null },
-    { title: "Grading", image: "grading", text: "Sorting by size and quality before packing." },
-    { title: "Packaging", image: "packaging", text: "Packing formats for wholesale, retail and export." },
-    { title: "Storage", image: "storage", text: "Packs are checked before storage and dispatch." },
-    { title: "Distribution", image: "distribution", text: null },
-  ] satisfies Stage[],
+  /** Same stage copy as the Our Process page (Figma STAGES). */
+  stages: processStages satisfies Stage[],
 }
 
 export const quality = {

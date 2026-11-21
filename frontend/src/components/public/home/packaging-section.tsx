@@ -5,7 +5,7 @@ import { packaging } from "@/features/home/content"
 /** 09 Packaging Showcase (sand; tablet + desktop — not part of the mobile design). */
 export function PackagingSection() {
   return (
-    <section aria-labelledby="packaging-title" className="section-y hidden bg-sand md:block">
+    <section id="packaging" aria-labelledby="packaging-title" className="section-y hidden scroll-mt-24 bg-sand md:block">
       <div className="container-site flex flex-col gap-8 xl:gap-12">
         <Reveal className="flex flex-col gap-4">
           <p className="type-overline text-teal-strong">{packaging.overline}</p>

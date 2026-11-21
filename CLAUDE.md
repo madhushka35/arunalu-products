@@ -179,9 +179,10 @@ Last updated: 2026-11-21. Full roadmap (stages 01–11): report section 15 and `
 | Stage 3 – Homepage | Implemented – Visual Review Pending | 11 sections in `src/app/(public)/page.tsx`. Not yet compared with live Figma frames (Figma MCP limit reached) |
 | Stage 4 – Products Listing & Product Details | Implemented – Visual Review Pending | `/products` and `/products/[slug]`. Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
 | Stage 5 – Order / Export / Contact forms | Implemented – Visual Review Pending | Not connected to the API yet (preview / unavailable modes). Sandbox: tsc, ESLint, build, Playwright with a mock API |
-| Stage 6 – Remaining public pages | Next | About, Our Process, Quality, Export, Gallery, News, Privacy Policy, Terms |
+| Stage 6 – Remaining public pages | Implemented – Visual Review Pending | About, Our Process, Quality, Export, Gallery, News, Privacy Policy, Terms. News/legal show pending notices (no invented content). Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
+| Stage 7 – Admin panel | Next | Frontend admin UI (Figma admin frames); no backend yet |
 
-Not started: all other public pages, admin panel, Laravel backend, database (migration plan must be reviewed first), deployment.
+Not started: admin panel, Laravel backend, database (migration plan must be reviewed first), deployment.
 
 ### Decisions made
 
@@ -192,12 +193,11 @@ Not started: all other public pages, admin panel, Laravel backend, database (mig
 | D-03 | 2026-11-20 | Products sort options: Featured (default), Name A–Z, Name Z–A. |
 | D-04 | 2026-11-20 | Product details gallery shows the enhanced photo and the original product photo (as in Figma). |
 | D-05 | 2026-11-20 | Category URL format stays `/products?category=<slug>`. |
+| D-10 – D-14 | 2026-11-21 | Shared Figma process stages; Packaging options → `/#packaging`; gallery = real product photos only; pending notices for news/legal; `/export` includes the inquiry form. Details in `documentation/PROGRESS.md`. |
 | D-06 – D-09 | 2026-11-21 | Forms: Server Actions → Laravel API; export allows several products, order one; "Request a quote" → `/request-order`; honeypot anti-spam. Details in `documentation/PROGRESS.md`. |
 
 ### Outstanding decisions (need user / client input)
 
-- Export inquiry: separate page (`/export-inquiry`, current link) or a form on `/export`.
-- "Packaging options" mega-menu link target (currently `/our-process#packaging`).
 - Mobile header search button (omitted until search scope is defined).
 - Approval of the reversed (white) logo.
 - Confirmation of the "Custom & private label" packaging offer and the word "Premium" in the hero line.
@@ -227,4 +227,4 @@ Do not repeat completed stages unnecessarily.
 - Report files created or modified.
 - Report errors and test results honestly.
 - Ask for clarification when requirements or Figma details are unclear.
-- Preserve existing approved design decisions.
+- Preserve existing approved design decisions.

@@ -15,7 +15,7 @@ Status terms (report, Document Guide): **Implemented** = code exists · **Verifi
 | 03 | Homepage | Implemented – visual review pending | Sandbox: tsc, ESLint, build, Playwright 1440/1280/1024/768/390, 3D gating, reduced motion |
 | 04 | Products listing and details | Implemented – visual review pending | Sandbox: tsc, ESLint, build (5 product pages prerendered), Playwright 1440/768/390: filters, search, sort, URL deep links, mega-menu link, gallery, lightbox, mobile action bar |
 | 05 | Order / export / contact forms | Implemented – visual review pending (API not connected) | Sandbox: tsc, ESLint, build; Playwright 1440/768/390 against a mock API: client + server validation, blur/typing checks, 422 field mapping, references, preview and unavailable modes, no-JavaScript submit, honeypot, product preselect |
-| 06 | Remaining public pages / routes | Pending | – |
+| 06 | Remaining public pages / routes | Implemented – visual review pending | Sandbox: tsc, ESLint, build (22 routes static), Playwright 1440/768/390 on 9 pages: no overflow, no console errors, internal links resolve, gallery lightbox (keys, counter, close), process scroll-linked stage nav |
 | 07 | Admin panel | Pending | – |
 | 08 | Laravel backend / database | Pending (backend folder empty; blueprint needs review) | – |
 | 09 | API integration | Pending | – |
@@ -37,6 +37,11 @@ All test evidence so far comes from a sandbox copy of the frontend, not from the
 | D-07 | 2026-11-21 | Export inquiry allows several products (report "product(s)"); order request has one product (Figma). | Report 6.1 / blueprint `export_inquiry_products`; Figma order flow. |
 | D-08 | 2026-11-21 | Header / footer "Request a quote" goes to `/request-order`; `/export-inquiry` is a standalone page reused on `/export` later. | Figma prototype links; existing links. |
 | D-09 | 2026-11-21 | Anti-spam: honeypot now; throttling in Laravel; Turnstile decided at deployment. | No extra third-party script before launch decisions. |
+| D-10 | 2026-11-21 | Process stages use the Figma STAGES copy, shared by the homepage journey and `/our-process` (`features/process/stages.ts`). | One source; replaces the earlier unapproved stage texts. |
+| D-11 | 2026-11-21 | "Packaging options" link → homepage Packaging section (`/#packaging`). | No packaging page in Figma. |
+| D-12 | 2026-11-21 | Gallery shows only real product photos (enhanced + original). Production/facility/team items and the video gallery appear when real media is supplied. | Report §4: AI images must not be shown as real facilities or staff. |
+| D-13 | 2026-11-21 | News, Privacy Policy and Terms show an honest "being prepared / contact us" notice; Privacy and Terms are `noindex`. No article detail route until articles exist. | No approved content; nothing invented. |
+| D-14 | 2026-11-21 | `/export` includes the export inquiry form (`#inquiry`); `/export-inquiry` stays as a standalone page. | Figma Export page has the form; existing links keep working. |
 
 ## Report vs implementation – known differences
 
@@ -53,9 +58,9 @@ All test evidence so far comes from a sandbox copy of the frontend, not from the
 - 11 AI illustrative images to export from Figma into `frontend/public/images/illustrative/` (illustrative only; not to be presented as real facilities or staff).
 - Business-approved copy: capability descriptions (Local wholesale supply, International export), journey stages (Inspection, Quality Inspection, Distribution), product descriptions and storage information, verified statistics.
 - Confirm "Custom & private label" offer and the word "Premium" in the hero line.
-- Decide export inquiry route, "Packaging options" anchor, mobile search scope, reversed logo approval.
+- Decide mobile search scope, reversed logo approval.
 - Review whether GSAP and next-themes are needed.
-- Missing routes: /about, /our-process, /quality, /export, /gallery, /news, /privacy-policy, /terms.
+- Stage 6 content gaps: About Team section and Quality certifications are omitted (no data); About supermarket / export-destination claims need client confirmation; Our Process, Quality and About use illustrative placeholders until the AI images are exported; news articles, privacy policy and terms text needed.
 - Forms are not connected to a backend. Without `API_BASE_URL`: development shows a labelled preview (nothing stored or sent); production shows "temporarily unavailable" with phone / WhatsApp / email.
 - Form option lists are working defaults pending client confirmation: quantity units (kg, packs), packaging (retail, bulk wholesale, custom), contact subjects (5).
 - Contact map and business hours are hidden (no approved data). No privacy consent text until legal review. Customer confirmation email wording omitted until the backend sends one.
@@ -69,3 +74,4 @@ All test evidence so far comes from a sandbox copy of the frontend, not from the
 | 2026-11-21 | Stage 5 implemented: `/request-order` (3 steps, review, submitting, success; mobile progress + sticky bar; summary card), `/export-inquiry` (multi-product select, preselect from product page), `/contact` (business info cards + form). Shared form components, validation module, server actions, API service, `.env.example`. |
 | 2026-11-21 | Stage 4 implemented: `/products` (category chips All + 4, search, sort, URL state, empty state, desktop inquiry CTA) and `/products/[slug]` (static params for 5 products, gallery with original photo, zoom lightbox, verified spec rows, related products, mobile action bar, Product + BreadcrumbList JSON-LD). Catalogue extended with categories and a many-to-many `productCategories` list. |
 | 2026-11-20 | Report v1.0 added to `documentation/`. CLAUDE.md synced (authority order, roles, statuses, decisions). `frontend/.gitignore` now allows `.env.example`. |
+| 2026-11-21 | Stage 6 implemented: `/about`, `/our-process` (interactive journey), `/quality`, `/export` (with inquiry form), `/gallery` (filter + lightbox), `/news`, `/privacy-policy`, `/terms`. Shared process stages; Packaging options → `/#packaging`. |
