@@ -1,5 +1,6 @@
 import * as React from "react"
-import { ClipboardList, Globe, Mail, Package } from "lucide-react"
+import Link from "next/link"
+import { ChevronDown, ClipboardList, Globe, Mail, Package, Search, type LucideIcon } from "lucide-react"
 
 import type { AnyStatus } from "@/features/admin/sample-data"
 import { cn } from "@/lib/utils"
@@ -70,6 +71,108 @@ export function StatCard({ label, value, delta, icon }: { label: string; value: 
       </div>
       <p className="font-heading text-[28px] leading-none font-bold text-navy xl:text-[32px]">{value}</p>
       <p className="text-xs text-success-strong">{delta}</p>
+    </div>
+  )
+}
+
+const iconActionClass =
+  "flex size-11 shrink-0 items-center justify-center rounded-lg text-ink-muted outline-none transition-colors hover:bg-surface hover:text-navy focus-visible:ring-3 focus-visible:ring-teal/50"
+
+/** Table row action (Figma 44px icon targets): link or button. */
+export function IconAction({
+  icon: Icon,
+  label,
+  href,
+  danger,
+  ...props
+}: { icon: LucideIcon; label: string; href?: string; danger?: boolean } & Omit<React.ComponentProps<"button">, "children">) {
+  const cls = cn(iconActionClass, danger && "hover:bg-error/8 hover:text-error-strong")
+  if (href)
+    return (
+      <Link href={href} aria-label={label} title={label} className={cls}>
+        <Icon aria-hidden className="size-[18px]" />
+      </Link>
+    )
+  return (
+    <button type="button" aria-label={label} title={label} className={cls} {...props}>
+      <Icon aria-hidden className="size-[18px]" />
+    </button>
+  )
+}
+
+/** Figma "Search Field" (48px). */
+export function AdminSearch({ className, label, ...props }: { label: string } & React.ComponentProps<"input">) {
+  return (
+    <div className={cn("relative", className)}>
+      <Search aria-hidden className="pointer-events-none absolute top-1/2 left-4 size-[18px] -translate-y-1/2 text-ink-muted" />
+      <input
+        type="search"
+        aria-label={label}
+        className="h-12 w-full rounded-md border border-line bg-white pr-4 pl-11 text-sm text-ink outline-none placeholder:text-ink-muted/80 focus-visible:border-teal focus-visible:ring-3 focus-visible:ring-teal/30"
+        {...props}
+      />
+    </div>
+  )
+}
+
+/** Toolbar filter (Figma "Filter / …": 48px bordered dropdown). */
+export function FilterSelect({
+  label,
+  options,
+  className,
+  ...props
+}: { label: string; options: { value: string; label: string }[] } & React.ComponentProps<"select">) {
+  return (
+    <div className={cn("relative", className)}>
+      <select
+        aria-label={label}
+        className="h-12 w-full cursor-pointer appearance-none rounded-md border border-line bg-white pr-10 pl-3.5 text-sm font-medium text-ink outline-none hover:border-ink-muted/60 focus-visible:border-teal focus-visible:ring-3 focus-visible:ring-teal/30"
+        {...props}
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown aria-hidden className="pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-ink-muted" />
+    </div>
+  )
+}
+
+/** Tablet / mobile filter chips (Figma "chipRow"). */
+export function ChipFilter<V extends string>({
+  label,
+  options,
+  value,
+  onChange,
+  className,
+}: {
+  label: string
+  options: { value: V; label: string }[]
+  value: V
+  onChange: (v: V) => void
+  className?: string
+}) {
+  return (
+    <div role="group" aria-label={label} className={cn("-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] md:mx-0 md:px-0", className)}>
+      {options.map((o) => {
+        const on = o.value === value
+        return (
+          <button
+            key={o.value}
+            type="button"
+            aria-pressed={on}
+            onClick={() => onChange(o.value)}
+            className={cn(
+              "inline-flex h-11 shrink-0 items-center rounded-full border px-4 text-sm font-medium whitespace-nowrap outline-none transition-colors focus-visible:ring-3 focus-visible:ring-teal/50",
+              on ? "border-navy bg-navy text-white" : "border-line bg-white text-ink hover:border-navy"
+            )}
+          >
+            {o.label}
+          </button>
+        )
+      })}
     </div>
   )
 }

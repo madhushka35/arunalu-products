@@ -4,6 +4,8 @@
  * is a real customer, order or statistic.
  */
 
+import { categories, getCategorySlugsFor, products, productCategories, type CatalogProduct, type ProductCategorySlug } from "@/features/products/catalog"
+
 export type RequestStatus = "New" | "Reviewing" | "Contacted" | "Quotation Sent" | "Completed" | "Rejected or Closed"
 export type ContentStatus = "Draft" | "Published" | "Active" | "Inactive"
 export type AnyStatus = RequestStatus | ContentStatus
@@ -63,3 +65,47 @@ export const sampleActivity = [
 
 /** Signed-in user shown in the shell until real authentication exists. */
 export const sampleAdminUser = { name: "Admin User", role: "Super Admin (sample)", initials: "AU" }
+
+/* ---- Catalogue (7b) -------------------------------------------------------
+ * Products and categories come from the real catalogue (features/products).
+ * Publishing status, "featured" and "updated" dates are SAMPLE values from the
+ * Figma "Product Management" frame until the backend stores them.
+ */
+
+export type AdminProduct = CatalogProduct & {
+  status: "Published" | "Draft"
+  featured: boolean
+  updated: string
+  categorySlugs: ProductCategorySlug[]
+}
+
+export const adminProducts: AdminProduct[] = products.map((p, i) => ({
+  ...p,
+  status: i === 4 ? "Draft" : "Published",
+  featured: i === 0,
+  updated: `${18 - i} Nov 2026`,
+  categorySlugs: getCategorySlugsFor(p.slug),
+}))
+
+export const findAdminProduct = (slug: string) => adminProducts.find((p) => p.slug === slug)
+
+export type AdminCategory = {
+  slug: string
+  name: string
+  order: number
+  productCount: number
+  status: "Active" | "Inactive"
+  description: string
+}
+
+export const adminCategories: AdminCategory[] = categories.map((c) => ({
+  slug: c.slug,
+  name: c.name,
+  order: c.order,
+  productCount: productCategories.filter((pc) => pc.category === c.slug).length,
+  status: "Active",
+  description: "",
+}))
+
+/** Figma product form: "Available forms" checkboxes (none set yet — no approved data). */
+export const productForms = ["Whole", "Split", "Cut pieces", "Powder"] as const

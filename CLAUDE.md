@@ -180,7 +180,7 @@ Last updated: 2026-11-21. Full roadmap (stages 01–11): report section 15 and `
 | Stage 4 – Products Listing & Product Details | Implemented – Visual Review Pending | `/products` and `/products/[slug]`. Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
 | Stage 5 – Order / Export / Contact forms | Implemented – Visual Review Pending | Not connected to the API yet (preview / unavailable modes). Sandbox: tsc, ESLint, build, Playwright with a mock API |
 | Stage 6 – Remaining public pages | Implemented – Visual Review Pending | About, Our Process, Quality, Export, Gallery, News, Privacy Policy, Terms. News/legal show pending notices (no invented content). Sandbox: tsc, ESLint, build, Playwright 1440/768/390 |
-| Stage 7 – Admin panel | In progress – 7a Implemented | 7a: admin shell (sidebar / tablet rail / mobile drawer), Login, Dashboard, Notifications. Sample data only, no sign-in yet; `/admin` served only in development or with `ADMIN_PREVIEW=true` (`src/proxy.ts` returns 404 otherwise). Next: 7b Products + Categories, 7c Requests, 7d Gallery/News/Content/Settings, 7e Users/Roles/Logs/Profile |
+| Stage 7 – Admin panel | In progress – 7a + 7b Implemented | 7a: admin shell, Login, Dashboard, Notifications. 7b: Products list (search, category/status filters, chips on tablet/mobile, delete confirm), Add/Edit product form, Categories + add/edit drawer. Sample data only, no sign-in, nothing is saved; `/admin` served only in development or with `ADMIN_PREVIEW=true` (`src/proxy.ts` returns 404 otherwise). Next: 7c Requests, 7d Gallery/News/Content/Settings, 7e Users/Roles/Logs/Profile |
 
 Not started: admin panel, Laravel backend, database (migration plan must be reviewed first), deployment.
 

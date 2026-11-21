@@ -20,6 +20,10 @@ type DataTableProps<T> = {
   /** Below 768px rows become Admin Record Cards (Figma responsive rule). */
   card: (row: T) => { title: string; badge?: React.ReactNode; line1?: string; line2?: string; meta?: string }
   href?: (row: T) => string | undefined
+  /** false = rows have their own action buttons, so only mobile cards link (no row link / chevron). */
+  firstColumnLink?: boolean
+  /** Mobile card opens something in place (e.g. an edit drawer) instead of a link. */
+  onCardSelect?: (row: T) => void
   caption: string
   /** Figma "Table Title" row (e.g. "Recent order requests" + "View all"). */
   title?: string
@@ -31,7 +35,8 @@ type DataTableProps<T> = {
  * Figma "Data Table": header row on surface, 1-line truncated cells.
  * Tablet hides `desktopOnly` columns; mobile renders record cards.
  */
-export function DataTable<T>({ rows, rowKey, columns, card, href, caption, title, action, className }: DataTableProps<T>) {
+export function DataTable<T>({ rows, rowKey, columns, card, href, firstColumnLink = true, onCardSelect, caption, title, action, className }: DataTableProps<T>) {
+  const rowHref = firstColumnLink ? href : undefined
   return (
     <section aria-label={title ?? caption} className={cn("flex flex-col gap-3 md:gap-0", className)}>
       {title && (
@@ -60,12 +65,12 @@ export function DataTable<T>({ rows, rowKey, columns, card, href, caption, title
                   {c.header}
                 </th>
               ))}
-              {href && <th scope="col" className="w-12 xl:hidden"><span className="sr-only">Open</span></th>}
+              {rowHref && <th scope="col" className="w-12 xl:hidden"><span className="sr-only">Open</span></th>}
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => {
-              const link = href?.(r)
+              const link = rowHref?.(r)
               return (
                 <tr key={rowKey(r)} className={cn("border-b border-line last:border-0", link && "relative transition-colors hover:bg-surface/70")}>
                   {columns.map((c, i) => (
@@ -82,7 +87,7 @@ export function DataTable<T>({ rows, rowKey, columns, card, href, caption, title
                       )}
                     </td>
                   ))}
-                  {href && (
+                  {rowHref && (
                     <td className="px-3 xl:hidden">
                       <ChevronRight aria-hidden className="size-[18px] text-ink-muted" />
                     </td>
@@ -106,10 +111,10 @@ export function DataTable<T>({ rows, rowKey, columns, card, href, caption, title
               </span>
               {c.line1 && <span className="truncate text-sm text-ink">{c.line1}</span>}
               {c.line2 && <span className="truncate text-sm text-ink-muted">{c.line2}</span>}
-              {(c.meta || link) && (
+              {(c.meta || link || onCardSelect) && (
                 <span className="flex items-center pt-1">
                   <span className="flex-1 truncate text-xs text-ink-muted">{c.meta}</span>
-                  {link && <ChevronRight aria-hidden className="size-[18px] text-ink-muted" />}
+                  {(link || onCardSelect) && <ChevronRight aria-hidden className="size-[18px] text-ink-muted" />}
                 </span>
               )}
             </>
@@ -121,6 +126,10 @@ export function DataTable<T>({ rows, rowKey, columns, card, href, caption, title
                 <Link href={link} className={cn(cls, "outline-none focus-visible:ring-3 focus-visible:ring-teal/50")}>
                   {body}
                 </Link>
+              ) : onCardSelect ? (
+                <button type="button" onClick={() => onCardSelect(r)} className={cn(cls, "w-full text-left outline-none focus-visible:ring-3 focus-visible:ring-teal/50")}>
+                  {body}
+                </button>
               ) : (
                 <div className={cls}>{body}</div>
               )}
