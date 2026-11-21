@@ -41,7 +41,8 @@ export const mainNav: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ]
 
-export const quoteHref = "/request-quote"
+/** Header / footer "Request a quote" → guest order request (Figma prototype link). */
+export const quoteHref = "/request-order"
 
 export type CategoryLink = NavItem & {
   description: string
