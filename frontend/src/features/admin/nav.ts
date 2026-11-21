@@ -68,10 +68,6 @@ export function activeAdminItem(pathname: string) {
 
 /** Screens still to be built in Stage 7b–7e (shown as a labelled placeholder). */
 export const pendingAdminScreens: Record<string, { title: string; stage: string }> = {
-  gallery: { title: "Gallery", stage: "7d" },
-  news: { title: "News", stage: "7d" },
-  content: { title: "Website content", stage: "7d" },
-  settings: { title: "Settings", stage: "7d" },
   users: { title: "Users", stage: "7e" },
   roles: { title: "Roles & permissions", stage: "7e" },
   activity: { title: "Activity logs", stage: "7e" },

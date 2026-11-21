@@ -5,24 +5,27 @@ import { ChevronDown, ClipboardList, Globe, Mail, Package, Search, type LucideIc
 import type { AnyStatus } from "@/features/admin/sample-data"
 import { cn } from "@/lib/utils"
 
-/* Figma "Status Badge": tinted pill + colour dot, dark label (AA contrast). */
+/*
+ * Figma "Status Badge" (Revision 01, WCAG AA): tinted fill + darker same-hue
+ * label and dot; Quotation Sent is solid Deep Navy with white text.
+ */
 const BADGE: Record<AnyStatus, { pill: string; dot: string; label?: string }> = {
-  New: { pill: "bg-teal/12", dot: "bg-teal" },
-  Reviewing: { pill: "bg-warning/12", dot: "bg-warning" },
-  Contacted: { pill: "bg-ocean/12", dot: "bg-ocean" },
-  "Quotation Sent": { pill: "bg-sand/70", dot: "bg-navy" },
-  Completed: { pill: "bg-success/12", dot: "bg-success" },
-  "Rejected or Closed": { pill: "bg-error/12", dot: "bg-error", label: "Rejected / Closed" },
-  Draft: { pill: "bg-ink-muted/12", dot: "bg-ink-muted" },
-  Published: { pill: "bg-success/12", dot: "bg-success" },
-  Active: { pill: "bg-success/12", dot: "bg-success" },
-  Inactive: { pill: "bg-ink-muted/12", dot: "bg-ink-muted" },
+  New: { pill: "bg-teal/16 text-teal-strong", dot: "bg-teal-strong" },
+  Reviewing: { pill: "bg-warning/18 text-warning-strong", dot: "bg-warning-strong" },
+  Contacted: { pill: "bg-ocean/12 text-ocean", dot: "bg-ocean" },
+  "Quotation Sent": { pill: "bg-navy text-white", dot: "bg-teal" },
+  Completed: { pill: "bg-success/14 text-success-strong", dot: "bg-success-strong" },
+  "Rejected or Closed": { pill: "bg-error/14 text-error-strong", dot: "bg-error-strong", label: "Rejected / Closed" },
+  Draft: { pill: "bg-ink-muted/16 text-ink-strong-muted", dot: "bg-ink-strong-muted" },
+  Published: { pill: "bg-success/14 text-success-strong", dot: "bg-success-strong" },
+  Active: { pill: "bg-teal/16 text-teal-strong", dot: "bg-teal-strong" },
+  Inactive: { pill: "bg-ink-muted/16 text-ink-strong-muted", dot: "bg-ink-strong-muted" },
 }
 
 export function StatusBadge({ status, className }: { status: AnyStatus; className?: string }) {
   const b = BADGE[status]
   return (
-    <span className={cn("inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink", b.pill, className)}>
+    <span className={cn("inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap", b.pill, className)}>
       <span aria-hidden className={cn("size-1.5 rounded-full", b.dot)} />
       {b.label ?? status}
     </span>

@@ -109,3 +109,46 @@ export const adminCategories: AdminCategory[] = categories.map((c) => ({
 
 /** Figma product form: "Available forms" checkboxes (none set yet — no approved data). */
 export const productForms = ["Whole", "Split", "Cut pieces", "Powder"] as const
+
+/* ---- Content (7d) ---------------------------------------------------------- */
+
+export const galleryCategories = ["Production", "Machinery", "Products", "Packaging", "Facilities", "Team"] as const
+export type GalleryCategory = (typeof galleryCategories)[number]
+
+export type AdminMedia = {
+  id: string
+  file: string
+  src: string
+  alt: string
+  category: GalleryCategory
+  type: "image" | "video"
+  status: "Published" | "Draft"
+}
+
+/** Only REAL Arunalu photography (D-12): the product photos and their originals. */
+export const adminMedia: AdminMedia[] = products.flatMap((p) => [
+  { id: `${p.slug}-1`, file: p.image.split("/").pop()!, src: p.image, alt: p.imageAlt, category: "Products" as const, type: "image" as const, status: "Published" as const },
+  { id: `${p.slug}-2`, file: `original-${p.originalImage.split("/").pop()!}`, src: p.originalImage, alt: `${p.imageAlt} — original photo`, category: "Products" as const, type: "image" as const, status: "Published" as const },
+])
+
+export const newsCategories = ["Company news", "Products", "Export"] as const
+
+export type AdminArticle = {
+  id: string
+  title: string
+  slug: string
+  category: (typeof newsCategories)[number]
+  author: string
+  published: string
+  status: "Published" | "Draft"
+  excerpt: string
+}
+
+/** Figma "Admin – 14 News Management" sample rows. Not shown on the public site (no approved articles). */
+export const adminArticles: AdminArticle[] = [
+  { id: "a1", title: "Sample headline about a company update", slug: "sample-company-update", category: "Company news", author: "Editor (sample)", published: "12 Nov 2026", status: "Published", excerpt: "" },
+  { id: "a2", title: "Sample headline about a product range", slug: "sample-product-range", category: "Products", author: "Editor (sample)", published: "10 Nov 2026", status: "Published", excerpt: "" },
+  { id: "a3", title: "Sample headline about export buyers", slug: "sample-export-buyers", category: "Export", author: "Editor (sample)", published: "—", status: "Draft", excerpt: "" },
+]
+
+export const findArticle = (id: string) => adminArticles.find((a) => a.id === id)
